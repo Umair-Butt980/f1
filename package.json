@@ -4,7 +4,11 @@
   "description": "Helps F1 fans track live race data, analyze past races, and predict winners.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/server.js",
+    "dev": "nodemon src/server.ts",
+    "build": "tsc",
+    "format": "prettier --write ."
   },
   "repository": {
     "type": "git",
@@ -23,9 +27,14 @@
     "express": "^4.21.2"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.8",
+    "eslint": "^9.21.0",
+    "eslint-config-prettier": "^10.0.2",
+    "eslint-plugin-prettier": "^5.2.3",
     "nodemon": "^3.1.9",
+    "prettier": "^3.5.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
   }
