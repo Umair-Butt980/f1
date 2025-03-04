@@ -32,16 +32,16 @@ export function MainNav() {
   ]
 
   return (
-    <div className="flex gap-6 md:gap-10">
+    <div className="flex w-full items-center space-x-4 md:space-x-6">
       <Link href="/" className="flex items-center space-x-2">
-        <span className="inline-block font-bold text-xl text-red-600">F1 Tracker</span>
+        <span className="inline-block font-bold text-xl text-red-500">F1 Tracker</span>
       </Link>
-      <nav className="flex gap-2">
+      <nav className="flex items-center space-x-2">
         {routes.map((route) => (
-          <Button key={route.href} variant={pathname === route.href ? "default" : "ghost"} asChild>
+          <Button key={route.href} variant={pathname === route.href ? "default" : "ghost"} className="h-9" asChild>
             <Link href={route.href} className="flex items-center">
               {route.icon}
-              {route.name}
+              <span className="hidden md:inline-block">{route.name}</span>
             </Link>
           </Button>
         ))}

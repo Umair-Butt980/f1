@@ -204,64 +204,66 @@ export function LiveRaceData() {
   }
 
   return (
-    <div className="space-y-4">
-      <div className="flex justify-between items-center">
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
         <div>
           <h3 className="text-lg font-medium">
             Lap {lapCount} of {totalLaps}
           </h3>
           <p className="text-sm text-muted-foreground">Miami Grand Prix</p>
         </div>
-        <Progress value={(lapCount / totalLaps) * 100} className="w-1/3" />
+        <Progress value={(lapCount / totalLaps) * 100} className="w-[200px]" />
       </div>
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-12">Pos</TableHead>
-            <TableHead>Driver</TableHead>
-            <TableHead className="hidden md:table-cell">Team</TableHead>
-            <TableHead className="hidden md:table-cell">Lap Time</TableHead>
-            <TableHead>Gap</TableHead>
-            <TableHead className="hidden md:table-cell">Tires</TableHead>
-            <TableHead className="text-right">Status</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {drivers.map((driver) => (
-            <TableRow key={driver.code}>
-              <TableCell className="font-medium">{driver.position}</TableCell>
-              <TableCell>
-                <div className="flex flex-col">
-                  <span className="font-medium">{driver.code}</span>
-                  <span className="text-xs text-muted-foreground hidden md:inline">{driver.name}</span>
-                </div>
-              </TableCell>
-              <TableCell className="hidden md:table-cell">{driver.team}</TableCell>
-              <TableCell className="hidden md:table-cell">{driver.lapTime}</TableCell>
-              <TableCell>{driver.gap}</TableCell>
-              <TableCell className="hidden md:table-cell">
-                <Badge
-                  variant={
-                    driver.tires === "soft" ? "destructive" : driver.tires === "medium" ? "default" : "secondary"
-                  }
-                >
-                  {driver.tires}
-                </Badge>
-              </TableCell>
-              <TableCell className="text-right">
-                <Badge
-                  variant={
-                    driver.status === "racing" ? "outline" : driver.status === "pitting" ? "secondary" : "destructive"
-                  }
-                >
-                  {driver.status}
-                </Badge>
-              </TableCell>
+      <div className="rounded-md border">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[80px]">Pos</TableHead>
+              <TableHead>Driver</TableHead>
+              <TableHead className="hidden md:table-cell">Team</TableHead>
+              <TableHead className="hidden md:table-cell">Lap Time</TableHead>
+              <TableHead>Gap</TableHead>
+              <TableHead className="hidden md:table-cell">Tires</TableHead>
+              <TableHead className="text-right">Status</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {drivers.map((driver) => (
+              <TableRow key={driver.code}>
+                <TableCell className="font-medium">{driver.position}</TableCell>
+                <TableCell>
+                  <div className="flex flex-col">
+                    <span className="font-medium">{driver.code}</span>
+                    <span className="text-xs text-muted-foreground hidden md:inline">{driver.name}</span>
+                  </div>
+                </TableCell>
+                <TableCell className="hidden md:table-cell">{driver.team}</TableCell>
+                <TableCell className="hidden md:table-cell">{driver.lapTime}</TableCell>
+                <TableCell>{driver.gap}</TableCell>
+                <TableCell className="hidden md:table-cell">
+                  <Badge
+                    variant={
+                      driver.tires === "soft" ? "destructive" : driver.tires === "medium" ? "default" : "secondary"
+                    }
+                  >
+                    {driver.tires}
+                  </Badge>
+                </TableCell>
+                <TableCell className="text-right">
+                  <Badge
+                    variant={
+                      driver.status === "racing" ? "outline" : driver.status === "pitting" ? "secondary" : "destructive"
+                    }
+                  >
+                    {driver.status}
+                  </Badge>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   )
 }

@@ -51,7 +51,7 @@
 
 @layer base {
   * {
-    border-color: hsl(var(--border)); /* Directly setting border color */
+    border-color: hsl(var(--border));
   }
   body {
     background-color: hsl(var(--background));

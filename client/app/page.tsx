@@ -6,11 +6,10 @@ import { RaceStandings } from "@/components/race-standings"
 
 export default function HomePage() {
   return (
-    <div className="container py-8">
-      <h1 className="text-4xl font-bold mb-6">Live Race Dashboard</h1>
-
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <Card className="col-span-full">
+    <div className="container space-y-8 py-8">
+      <div className="flex flex-col space-y-4">
+        <h1 className="text-3xl font-bold tracking-tight">Live Race Dashboard</h1>
+        <Card>
           <CardHeader>
             <CardTitle>Current Race</CardTitle>
             <CardDescription>Miami Grand Prix - Miami International Autodrome</CardDescription>
@@ -22,13 +21,13 @@ export default function HomePage() {
                 <TabsTrigger value="circuit">Circuit Info</TabsTrigger>
                 <TabsTrigger value="standings">Standings</TabsTrigger>
               </TabsList>
-              <TabsContent value="live">
+              <TabsContent value="live" className="mt-4">
                 <LiveRaceData />
               </TabsContent>
-              <TabsContent value="circuit">
+              <TabsContent value="circuit" className="mt-4">
                 <CircuitInfo />
               </TabsContent>
-              <TabsContent value="standings">
+              <TabsContent value="standings" className="mt-4">
                 <RaceStandings />
               </TabsContent>
             </Tabs>
