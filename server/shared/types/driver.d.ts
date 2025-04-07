@@ -1,4 +1,6 @@
+import { DriverStatus } from "./driverStatus";
 import { TeamName } from "./f1Teams";
+import { Lap } from "./lap";
 
 // Driver Interface
 export interface Driver {
