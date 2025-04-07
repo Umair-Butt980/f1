@@ -1,0 +1,13 @@
+// Team Names
+export enum TeamName {
+    RED_BULL = 'RED_BULL',
+    MERCEDES = 'MERCEDES',
+    FERRARI = 'FERRARI',
+    MCLAREN = 'MCLAREN',
+    ALPINE = 'ALPINE',
+    ASTON_MARTIN = 'ASTON_MARTIN',
+    ALFA_ROMEO = 'ALFA_ROMEO',
+    HAAS = 'HAAS',
+    ALPHATAURI = 'ALPHATAURI',
+    WILLIAMS = 'WILLIAMS'
+}

@@ -32,3 +32,19 @@ function handleRaceEvents(tyre: tyreCompound, raceEvents: raceEvents): string {
    }
    return 'No notable event' // Added default return
 }
+
+//intersections
+type driver1 = {
+  name:string,
+  age:number,
+  bestLap:number,
+  podiums:number
+}
+
+type lap1 = {
+  lapNumber:number,
+  sector:[],
+  bestTime:number
+}
+//intersection
+type driverLap = driver1 & lap1;
