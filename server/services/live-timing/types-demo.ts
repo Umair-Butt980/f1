@@ -30,5 +30,40 @@ interface driver  {
     racingCompany: string
 }
 
+//
+type PenaltyEvent = {
+    type: "penalty";
+    driver: string;
+    penaltyType: "time" | "grid" | "drive-through";
+    value: number; // seconds (if time), or positions (if grid)
+  };
+  
+  type MechanicalFailureEvent = {
+    type: "mechanical-failure";
+    driver: string;
+    part: string;
+    lap: number;
+  };
+  
+  type RadioMessageEvent = {
+    type: "radio";
+    driver: string;
+    message: string;
+  };
+  
+  type IncidentEvent = PenaltyEvent | MechanicalFailureEvent | RadioMessageEvent;
 
+
+function describeIncident(incident: IncidentEvent){
+  if(incident.type === 'penalty'){
+    return `HAM recieved a ${incident.penaltyType} of 5 seconds` 
+  }
+  else if(incident.type === 'mechanical-failure'){
+    return `LEC had a ${incident.type} at ${incident.lap} on part ${incident.part}`
+  }
+  else if(incident.type === 'radio'){
+    return `NOR ${incident.type}ed tyres are gone mate`
+  }
+
+}
 // type narrowing and type gaurds
