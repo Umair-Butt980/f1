@@ -1,4 +1,4 @@
-// Team Names
+// can use literal type and
 export enum TeamName {
     RED_BULL = 'RED_BULL',
     MERCEDES = 'MERCEDES',
@@ -11,3 +11,6 @@ export enum TeamName {
     ALPHATAURI = 'ALPHATAURI',
     WILLIAMS = 'WILLIAMS'
 }
+
+//with a literal type
+export type TeamName1 = 'RED BULL' | 'MERCEDES'  | 'FERRARI' | 'MCLAREN'| 'ALPINE'| 'ASTON MARTIN'| 'ALFA ROMEO'| 'HAAS'| 'ALPHATAURI' | 'WILLIAMS'

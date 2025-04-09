@@ -29,3 +29,6 @@ interface driver  {
     age:  number,
     racingCompany: string
 }
+
+
+// type narrowing and type gaurds
