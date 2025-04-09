@@ -67,3 +67,34 @@ function describeIncident(incident: IncidentEvent){
 
 }
 // type narrowing and type gaurds
+type LapTime = {
+    type: "lap-time";
+    driver: string;
+    lap: number;
+    time: string; // e.g., "1:23.456"
+  };
+  
+  type SectorTime = {
+    type: "sector-time";
+    driver: string;
+    sector: 1 | 2 | 3;
+    time: string;
+  };
+  
+  type PositionChange = {
+    type: "position-change";
+    driver: string;
+    from: number;
+    to: number;
+  };
+  type RaceData = LapTime | SectorTime | PositionChange;
+
+function classifyRaceData(data: RaceData): string {
+    if ("lap" in data) {
+      return `VER completed ${data.lap} in ${data.time}`
+    } else if ("sector" in data) {
+      return `HAM ${data.sector} in time: ${data.time}`
+    } else {
+     return `LEC moved from ${data.from} to ${data.to}`
+    }
+  }
