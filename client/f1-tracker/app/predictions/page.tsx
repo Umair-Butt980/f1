@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Progress } from "@/components/ui/progress"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { drivers, getUpcomingRace } from "@/lib/f1-data"
-import { useState } from "react"
-import Image from "next/image"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Progress } from "@/components/ui/progress";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { drivers, getUpcomingRace } from "@/lib/f1-data";
+import { useState } from "react";
+import Image from "next/image";
 
 export default function PredictionsPage() {
-  const upcomingRace = getUpcomingRace()
-  const [predictionType, setPredictionType] = useState("race")
+  const upcomingRace = getUpcomingRace();
+  const [predictionType, setPredictionType] = useState("race");
 
   // Generate random prediction percentages for each driver
   const driverPredictions = [...drivers]
-    .map((driver) => ({
+    .map(driver => ({
       ...driver,
       winProbability: Math.random() * 100,
       podiumProbability: Math.random() * 100,
@@ -22,14 +22,14 @@ export default function PredictionsPage() {
     }))
     .sort((a, b) => {
       if (predictionType === "race") {
-        return b.winProbability - a.winProbability
+        return b.winProbability - a.winProbability;
       } else if (predictionType === "podium") {
-        return b.podiumProbability - a.podiumProbability
+        return b.podiumProbability - a.podiumProbability;
       } else {
-        return b.pointsProbability - a.pointsProbability
+        return b.pointsProbability - a.pointsProbability;
       }
     })
-    .slice(0, 10)
+    .slice(0, 10);
 
   if (!upcomingRace) {
     return (
@@ -37,7 +37,7 @@ export default function PredictionsPage() {
         <h1 className="text-2xl font-bold mb-2">No Upcoming Race</h1>
         <p className="text-muted-foreground">There is no upcoming race to predict.</p>
       </div>
-    )
+    );
   }
 
   return (
@@ -48,7 +48,8 @@ export default function PredictionsPage() {
         <CardHeader className="pb-2">
           <CardTitle>Upcoming Race: {upcomingRace.name}</CardTitle>
           <CardDescription>
-            {upcomingRace.circuit.name} · {upcomingRace.circuit.location}, {upcomingRace.circuit.country}
+            {upcomingRace.circuit.name} · {upcomingRace.circuit.location},{" "}
+            {upcomingRace.circuit.country}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -114,17 +115,22 @@ export default function PredictionsPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {driverPredictions.map((driver) => (
+                {driverPredictions.map(driver => (
                   <div key={driver.id} className="space-y-1">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Avatar className="h-8 w-8 border">
-                          <AvatarImage src={driver.imageUrl || "/placeholder.svg"} alt={driver.name} />
+                          <AvatarImage
+                            src={driver.imageUrl || "/placeholder.svg"}
+                            alt={driver.name}
+                          />
                           <AvatarFallback>{driver.code}</AvatarFallback>
                         </Avatar>
                         <span className="text-sm font-medium">{driver.name}</span>
                       </div>
-                      <span className="text-sm font-medium">{driver.winProbability.toFixed(1)}%</span>
+                      <span className="text-sm font-medium">
+                        {driver.winProbability.toFixed(1)}%
+                      </span>
                     </div>
                     <Progress value={driver.winProbability} className="h-2" />
                   </div>
@@ -142,17 +148,22 @@ export default function PredictionsPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {driverPredictions.map((driver) => (
+                {driverPredictions.map(driver => (
                   <div key={driver.id} className="space-y-1">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Avatar className="h-8 w-8 border">
-                          <AvatarImage src={driver.imageUrl || "/placeholder.svg"} alt={driver.name} />
+                          <AvatarImage
+                            src={driver.imageUrl || "/placeholder.svg"}
+                            alt={driver.name}
+                          />
                           <AvatarFallback>{driver.code}</AvatarFallback>
                         </Avatar>
                         <span className="text-sm font-medium">{driver.name}</span>
                       </div>
-                      <span className="text-sm font-medium">{driver.podiumProbability.toFixed(1)}%</span>
+                      <span className="text-sm font-medium">
+                        {driver.podiumProbability.toFixed(1)}%
+                      </span>
                     </div>
                     <Progress value={driver.podiumProbability} className="h-2" />
                   </div>
@@ -170,17 +181,22 @@ export default function PredictionsPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {driverPredictions.map((driver) => (
+                {driverPredictions.map(driver => (
                   <div key={driver.id} className="space-y-1">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Avatar className="h-8 w-8 border">
-                          <AvatarImage src={driver.imageUrl || "/placeholder.svg"} alt={driver.name} />
+                          <AvatarImage
+                            src={driver.imageUrl || "/placeholder.svg"}
+                            alt={driver.name}
+                          />
                           <AvatarFallback>{driver.code}</AvatarFallback>
                         </Avatar>
                         <span className="text-sm font-medium">{driver.name}</span>
                       </div>
-                      <span className="text-sm font-medium">{driver.pointsProbability.toFixed(1)}%</span>
+                      <span className="text-sm font-medium">
+                        {driver.pointsProbability.toFixed(1)}%
+                      </span>
                     </div>
                     <Progress value={driver.pointsProbability} className="h-2" />
                   </div>
@@ -199,8 +215,8 @@ export default function PredictionsPage() {
         <CardContent>
           <div className="space-y-4">
             <p className="text-sm text-muted-foreground">
-              Our F1 race predictions are generated using a combination of historical data, current form, and machine
-              learning algorithms. The model takes into account:
+              Our F1 race predictions are generated using a combination of historical data, current
+              form, and machine learning algorithms. The model takes into account:
             </p>
             <ul className="text-sm space-y-2">
               <li className="flex items-start gap-2">
@@ -209,7 +225,9 @@ export default function PredictionsPage() {
                 </div>
                 <div>
                   <p className="font-medium">Historical Performance</p>
-                  <p className="text-muted-foreground">Past results at the specific circuit and similar track types</p>
+                  <p className="text-muted-foreground">
+                    Past results at the specific circuit and similar track types
+                  </p>
                 </div>
               </li>
               <li className="flex items-start gap-2">
@@ -218,7 +236,9 @@ export default function PredictionsPage() {
                 </div>
                 <div>
                   <p className="font-medium">Current Form</p>
-                  <p className="text-muted-foreground">Recent race results and qualifying performances</p>
+                  <p className="text-muted-foreground">
+                    Recent race results and qualifying performances
+                  </p>
                 </div>
               </li>
               <li className="flex items-start gap-2">
@@ -227,7 +247,9 @@ export default function PredictionsPage() {
                 </div>
                 <div>
                   <p className="font-medium">Team Performance</p>
-                  <p className="text-muted-foreground">Car development, reliability, and pit stop efficiency</p>
+                  <p className="text-muted-foreground">
+                    Car development, reliability, and pit stop efficiency
+                  </p>
                 </div>
               </li>
               <li className="flex items-start gap-2">
@@ -236,16 +258,19 @@ export default function PredictionsPage() {
                 </div>
                 <div>
                   <p className="font-medium">Track Characteristics</p>
-                  <p className="text-muted-foreground">How well each car's strengths match the circuit demands</p>
+                  <p className="text-muted-foreground">
+                    How well each car's strengths match the circuit demands
+                  </p>
                 </div>
               </li>
             </ul>
             <p className="text-sm text-muted-foreground">
-              The predictions are updated after each race weekend to incorporate the latest data and performance trends.
+              The predictions are updated after each race weekend to incorporate the latest data and
+              performance trends.
             </p>
           </div>
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

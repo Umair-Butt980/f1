@@ -1,16 +1,23 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { drivers, teams } from "@/lib/f1-data"
-import Image from "next/image"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { drivers, teams } from "@/lib/f1-data";
+import Image from "next/image";
 
 export default function StatsPage() {
   // Sort drivers by position
-  const sortedDrivers = [...drivers].sort((a, b) => a.position - b.position)
+  const sortedDrivers = [...drivers].sort((a, b) => a.position - b.position);
 
   // Sort teams by position
-  const sortedTeams = [...teams].sort((a, b) => a.position - b.position)
+  const sortedTeams = [...teams].sort((a, b) => a.position - b.position);
 
   return (
     <div className="space-y-6">
@@ -39,14 +46,20 @@ export default function StatsPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {sortedDrivers.map((driver) => (
+                  {sortedDrivers.map(driver => (
                     <TableRow key={driver.id}>
                       <TableCell className="font-medium">{driver.position}</TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
-                          <div className="w-1 h-8 rounded-full" style={{ backgroundColor: driver.teamColor }} />
+                          <div
+                            className="w-1 h-8 rounded-full"
+                            style={{ backgroundColor: driver.teamColor }}
+                          />
                           <Avatar className="h-8 w-8 border">
-                            <AvatarImage src={driver.imageUrl || "/placeholder.svg"} alt={driver.name} />
+                            <AvatarImage
+                              src={driver.imageUrl || "/placeholder.svg"}
+                              alt={driver.name}
+                            />
                             <AvatarFallback>{driver.code}</AvatarFallback>
                           </Avatar>
                           <span>{driver.name}</span>
@@ -78,12 +91,15 @@ export default function StatsPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {sortedTeams.map((team) => (
+                  {sortedTeams.map(team => (
                     <TableRow key={team.id}>
                       <TableCell className="font-medium">{team.position}</TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
-                          <div className="w-3 h-8 rounded-full" style={{ backgroundColor: team.color }} />
+                          <div
+                            className="w-3 h-8 rounded-full"
+                            style={{ backgroundColor: team.color }}
+                          />
                           <div className="relative h-8 w-16">
                             <Image
                               src={team.logo || "/placeholder.svg"}
@@ -132,5 +148,5 @@ export default function StatsPage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

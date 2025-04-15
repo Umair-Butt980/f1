@@ -1,48 +1,55 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Progress } from "@/components/ui/progress"
-import { getDriverById, getOngoingRace, lapTimes } from "@/lib/f1-data"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useEffect, useState } from "react"
-import { Clock, Flag, Timer } from "lucide-react"
-import Image from "next/image"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Progress } from "@/components/ui/progress";
+import { getDriverById, getOngoingRace, lapTimes } from "@/lib/f1-data";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useEffect, useState } from "react";
+import { Clock, Flag, Timer } from "lucide-react";
+import Image from "next/image";
 
 export default function LivePage() {
-  const race = getOngoingRace()
-  const [elapsedTime, setElapsedTime] = useState(0)
-  const [currentLap, setCurrentLap] = useState(1)
-  const totalLaps = 57 // Typical F1 race
-  const raceProgress = (currentLap / totalLaps) * 100
+  const race = getOngoingRace();
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [currentLap, setCurrentLap] = useState(1);
+  const totalLaps = 57; // Typical F1 race
+  const raceProgress = (currentLap / totalLaps) * 100;
 
   // Simulate race progress
   useEffect(() => {
     const timer = setInterval(() => {
-      setElapsedTime((prev) => prev + 1)
+      setElapsedTime(prev => prev + 1);
 
       // Update lap every 90 seconds
       if (elapsedTime > 0 && elapsedTime % 90 === 0 && currentLap < totalLaps) {
-        setCurrentLap((prev) => prev + 1)
+        setCurrentLap(prev => prev + 1);
       }
-    }, 1000)
+    }, 1000);
 
-    return () => clearInterval(timer)
-  }, [elapsedTime, currentLap])
+    return () => clearInterval(timer);
+  }, [elapsedTime, currentLap]);
 
   // Format elapsed time as hh:mm:ss
   const formatTime = (seconds: number) => {
-    const hours = Math.floor(seconds / 3600)
-    const minutes = Math.floor((seconds % 3600) / 60)
-    const secs = seconds % 60
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
 
     return [
       hours.toString().padStart(2, "0"),
       minutes.toString().padStart(2, "0"),
       secs.toString().padStart(2, "0"),
-    ].join(":")
-  }
+    ].join(":");
+  };
 
   if (!race) {
     return (
@@ -51,23 +58,23 @@ export default function LivePage() {
         <h1 className="text-2xl font-bold mb-2">No Live Race</h1>
         <p className="text-muted-foreground">There is no race currently in progress.</p>
       </div>
-    )
+    );
   }
 
   // Get current race positions (in a real app, this would be live data)
   const currentPositions = lapTimes
-    .filter((lap) => lap.lap === Math.min(currentLap, 2)) // Use lap 2 data if we're beyond lap 2
+    .filter(lap => lap.lap === Math.min(currentLap, 2)) // Use lap 2 data if we're beyond lap 2
     .sort((a, b) => {
-      const timeA = a.time.split(":").reduce((acc, time) => 60 * acc + Number.parseFloat(time), 0)
-      const timeB = b.time.split(":").reduce((acc, time) => 60 * acc + Number.parseFloat(time), 0)
-      return timeA - timeB
+      const timeA = a.time.split(":").reduce((acc, time) => 60 * acc + Number.parseFloat(time), 0);
+      const timeB = b.time.split(":").reduce((acc, time) => 60 * acc + Number.parseFloat(time), 0);
+      return timeA - timeB;
     })
     .map((lap, index) => ({
       position: index + 1,
       driverId: lap.driverId,
       lapTime: lap.time,
       gap: index === 0 ? "LEADER" : `+${(Math.random() * 10).toFixed(3)}s`,
-    }))
+    }));
 
   return (
     <div className="space-y-6">
@@ -147,18 +154,24 @@ export default function LivePage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {currentPositions.map((pos) => {
-                    const driver = getDriverById(pos.driverId)
-                    if (!driver) return null
+                  {currentPositions.map(pos => {
+                    const driver = getDriverById(pos.driverId);
+                    if (!driver) return null;
 
                     return (
                       <TableRow key={pos.driverId}>
                         <TableCell className="font-medium">{pos.position}</TableCell>
                         <TableCell>
                           <div className="flex items-center gap-2">
-                            <div className="w-1 h-8 rounded-full" style={{ backgroundColor: driver.teamColor }} />
+                            <div
+                              className="w-1 h-8 rounded-full"
+                              style={{ backgroundColor: driver.teamColor }}
+                            />
                             <Avatar className="h-8 w-8 border">
-                              <AvatarImage src={driver.imageUrl || "/placeholder.svg"} alt={driver.name} />
+                              <AvatarImage
+                                src={driver.imageUrl || "/placeholder.svg"}
+                                alt={driver.name}
+                              />
                               <AvatarFallback>{driver.code}</AvatarFallback>
                             </Avatar>
                             <div>
@@ -170,7 +183,7 @@ export default function LivePage() {
                         <TableCell className="text-right">{pos.gap}</TableCell>
                         <TableCell className="text-right">{pos.lapTime}</TableCell>
                       </TableRow>
-                    )
+                    );
                   })}
                 </TableBody>
               </Table>
@@ -194,15 +207,18 @@ export default function LivePage() {
                 </TableHeader>
                 <TableBody>
                   {lapTimes.map((lap, index) => {
-                    const driver = getDriverById(lap.driverId)
-                    if (!driver) return null
+                    const driver = getDriverById(lap.driverId);
+                    if (!driver) return null;
 
                     return (
                       <TableRow key={`${lap.driverId}-${lap.lap}-${index}`}>
                         <TableCell>
                           <div className="flex items-center gap-2">
                             <Avatar className="h-6 w-6 border">
-                              <AvatarImage src={driver.imageUrl || "/placeholder.svg"} alt={driver.name} />
+                              <AvatarImage
+                                src={driver.imageUrl || "/placeholder.svg"}
+                                alt={driver.name}
+                              />
                               <AvatarFallback>{driver.code}</AvatarFallback>
                             </Avatar>
                             <span className="text-sm font-medium">{driver.code}</span>
@@ -214,7 +230,7 @@ export default function LivePage() {
                         <TableCell>{lap.sector2}</TableCell>
                         <TableCell>{lap.sector3}</TableCell>
                       </TableRow>
-                    )
+                    );
                   })}
                 </TableBody>
               </Table>
@@ -239,5 +255,5 @@ export default function LivePage() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

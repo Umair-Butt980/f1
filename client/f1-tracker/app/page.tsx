@@ -1,14 +1,14 @@
-import { DriverStandings } from "@/components/driver-standings"
-import { RecentResults } from "@/components/recent-results"
-import { UpcomingRace } from "@/components/upcoming-race"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { getOngoingRace, getPredictedWinner } from "@/lib/f1-data"
-import { Flag, Timer } from "lucide-react"
-import Link from "next/link"
+import { DriverStandings } from "@/components/driver-standings";
+import { RecentResults } from "@/components/recent-results";
+import { UpcomingRace } from "@/components/upcoming-race";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { getOngoingRace, getPredictedWinner } from "@/lib/f1-data";
+import { Flag, Timer } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
-  const ongoingRace = getOngoingRace()
-  const predictedWinner = getPredictedWinner()
+  const ongoingRace = getOngoingRace();
+  const predictedWinner = getPredictedWinner();
 
   return (
     <div className="space-y-6">
@@ -57,5 +57,5 @@ export default function Home() {
 
       <RecentResults />
     </div>
-  )
+  );
 }

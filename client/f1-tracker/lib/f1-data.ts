@@ -2,61 +2,61 @@
 // In a real application, you would fetch this from an API
 
 export type Driver = {
-  id: string
-  number: number
-  code: string
-  name: string
-  firstName: string
-  lastName: string
-  team: string
-  points: number
-  position: number
-  imageUrl: string
-  teamColor: string
-}
+  id: string;
+  number: number;
+  code: string;
+  name: string;
+  firstName: string;
+  lastName: string;
+  team: string;
+  points: number;
+  position: number;
+  imageUrl: string;
+  teamColor: string;
+};
 
 export type Team = {
-  id: string
-  name: string
-  color: string
-  logo: string
-  points: number
-  position: number
-}
+  id: string;
+  name: string;
+  color: string;
+  logo: string;
+  points: number;
+  position: number;
+};
 
 export type Race = {
-  id: string
-  name: string
-  round: number
-  date: string
-  time: string
+  id: string;
+  name: string;
+  round: number;
+  date: string;
+  time: string;
   circuit: {
-    id: string
-    name: string
-    location: string
-    country: string
-    imageUrl: string
-  }
-  status: "upcoming" | "ongoing" | "completed"
-  results?: RaceResult[]
-}
+    id: string;
+    name: string;
+    location: string;
+    country: string;
+    imageUrl: string;
+  };
+  status: "upcoming" | "ongoing" | "completed";
+  results?: RaceResult[];
+};
 
 export type RaceResult = {
-  position: number
-  driverId: string
-  time: string
-  points: number
-  fastestLap?: boolean
-}
+  position: number;
+  driverId: string;
+  time: string;
+  points: number;
+  fastestLap?: boolean;
+};
 
 export type LapTime = {
-  driverId: string
-  lap: number
-  time: string
-  sector1: string
-  sector2: string
-  sector3: string
-}
+  driverId: string;
+  lap: number;
+  time: string;
+  sector1: string;
+  sector2: string;
+  sector3: string;
+};
 
 // Mock drivers data
 export const drivers: Driver[] = [
@@ -190,7 +190,7 @@ export const drivers: Driver[] = [
     imageUrl: "/placeholder.svg?height=100&width=100",
     teamColor: "#006F62",
   },
-]
+];
 
 // Mock teams data
 export const teams: Team[] = [
@@ -274,7 +274,7 @@ export const teams: Team[] = [
     points: 0,
     position: 10,
   },
-]
+];
 
 // Mock races data
 export const races: Race[] = [
@@ -293,7 +293,13 @@ export const races: Race[] = [
     },
     status: "completed",
     results: [
-      { position: 1, driverId: "max_verstappen", time: "1:32:04.612", points: 25, fastestLap: false },
+      {
+        position: 1,
+        driverId: "max_verstappen",
+        time: "1:32:04.612",
+        points: 25,
+        fastestLap: false,
+      },
       { position: 2, driverId: "sergio_perez", time: "+13.643", points: 18, fastestLap: false },
       { position: 3, driverId: "carlos_sainz", time: "+18.305", points: 15, fastestLap: false },
     ],
@@ -313,7 +319,13 @@ export const races: Race[] = [
     },
     status: "completed",
     results: [
-      { position: 1, driverId: "max_verstappen", time: "1:21:14.894", points: 25, fastestLap: false },
+      {
+        position: 1,
+        driverId: "max_verstappen",
+        time: "1:21:14.894",
+        points: 25,
+        fastestLap: false,
+      },
       { position: 2, driverId: "sergio_perez", time: "+13.643", points: 18, fastestLap: false },
       { position: 3, driverId: "carlos_sainz", time: "+18.305", points: 15, fastestLap: false },
     ],
@@ -353,7 +365,13 @@ export const races: Race[] = [
     },
     status: "completed",
     results: [
-      { position: 1, driverId: "max_verstappen", time: "1:30:58.421", points: 25, fastestLap: false },
+      {
+        position: 1,
+        driverId: "max_verstappen",
+        time: "1:30:58.421",
+        points: 25,
+        fastestLap: false,
+      },
       { position: 2, driverId: "sergio_perez", time: "+12.535", points: 18, fastestLap: false },
       { position: 3, driverId: "carlos_sainz", time: "+20.866", points: 15, fastestLap: false },
     ],
@@ -390,46 +408,102 @@ export const races: Race[] = [
     status: "upcoming",
     results: [],
   },
-]
+];
 
 // Mock lap times for live race
 export const lapTimes: LapTime[] = [
-  { driverId: "max_verstappen", lap: 1, time: "1:32.584", sector1: "28.453", sector2: "35.921", sector3: "28.210" },
-  { driverId: "lando_norris", lap: 1, time: "1:32.892", sector1: "28.612", sector2: "36.012", sector3: "28.268" },
-  { driverId: "charles_leclerc", lap: 1, time: "1:33.105", sector1: "28.734", sector2: "36.124", sector3: "28.247" },
-  { driverId: "lewis_hamilton", lap: 1, time: "1:33.241", sector1: "28.812", sector2: "36.178", sector3: "28.251" },
-  { driverId: "max_verstappen", lap: 2, time: "1:31.984", sector1: "28.123", sector2: "35.721", sector3: "28.140" },
-  { driverId: "lando_norris", lap: 2, time: "1:32.192", sector1: "28.312", sector2: "35.812", sector3: "28.068" },
-  { driverId: "charles_leclerc", lap: 2, time: "1:32.405", sector1: "28.434", sector2: "35.824", sector3: "28.147" },
-  { driverId: "lewis_hamilton", lap: 2, time: "1:32.541", sector1: "28.512", sector2: "35.878", sector3: "28.151" },
-]
+  {
+    driverId: "max_verstappen",
+    lap: 1,
+    time: "1:32.584",
+    sector1: "28.453",
+    sector2: "35.921",
+    sector3: "28.210",
+  },
+  {
+    driverId: "lando_norris",
+    lap: 1,
+    time: "1:32.892",
+    sector1: "28.612",
+    sector2: "36.012",
+    sector3: "28.268",
+  },
+  {
+    driverId: "charles_leclerc",
+    lap: 1,
+    time: "1:33.105",
+    sector1: "28.734",
+    sector2: "36.124",
+    sector3: "28.247",
+  },
+  {
+    driverId: "lewis_hamilton",
+    lap: 1,
+    time: "1:33.241",
+    sector1: "28.812",
+    sector2: "36.178",
+    sector3: "28.251",
+  },
+  {
+    driverId: "max_verstappen",
+    lap: 2,
+    time: "1:31.984",
+    sector1: "28.123",
+    sector2: "35.721",
+    sector3: "28.140",
+  },
+  {
+    driverId: "lando_norris",
+    lap: 2,
+    time: "1:32.192",
+    sector1: "28.312",
+    sector2: "35.812",
+    sector3: "28.068",
+  },
+  {
+    driverId: "charles_leclerc",
+    lap: 2,
+    time: "1:32.405",
+    sector1: "28.434",
+    sector2: "35.824",
+    sector3: "28.147",
+  },
+  {
+    driverId: "lewis_hamilton",
+    lap: 2,
+    time: "1:32.541",
+    sector1: "28.512",
+    sector2: "35.878",
+    sector3: "28.151",
+  },
+];
 
 // Helper functions to get data
 export function getUpcomingRace() {
-  return races.find((race) => race.status === "upcoming")
+  return races.find(race => race.status === "upcoming");
 }
 
 export function getOngoingRace() {
-  return races.find((race) => race.status === "ongoing")
+  return races.find(race => race.status === "ongoing");
 }
 
 export function getRecentRaces(count = 3) {
   return races
-    .filter((race) => race.status === "completed")
+    .filter(race => race.status === "completed")
     .sort((a, b) => b.round - a.round)
-    .slice(0, count)
+    .slice(0, count);
 }
 
 export function getDriverById(id: string) {
-  return drivers.find((driver) => driver.id === id)
+  return drivers.find(driver => driver.id === id);
 }
 
 export function getTeamById(id: string) {
-  return teams.find((team) => team.id === id)
+  return teams.find(team => team.id === id);
 }
 
 export function getPredictedWinner() {
   // In a real app, this would use an algorithm or ML model
   // For demo purposes, we'll just return the current leader
-  return drivers[0]
+  return drivers[0];
 }

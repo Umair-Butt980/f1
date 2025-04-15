@@ -1,31 +1,44 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { getDriverById, races } from "@/lib/f1-data"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useState } from "react"
-import Image from "next/image"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getDriverById, races } from "@/lib/f1-data";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useState } from "react";
+import Image from "next/image";
 
 export default function HistoryPage() {
-  const [selectedRace, setSelectedRace] = useState(races[0].id)
+  const [selectedRace, setSelectedRace] = useState(races[0].id);
 
-  const race = races.find((r) => r.id === selectedRace)
+  const race = races.find(r => r.id === selectedRace);
 
   if (!race) {
-    return <div>Race not found</div>
+    return <div>Race not found</div>;
   }
 
   // Format date for display
-  const raceDate = new Date(race.date)
+  const raceDate = new Date(race.date);
   const formattedDate = raceDate.toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
-  })
+  });
 
   return (
     <div className="space-y-6">
@@ -36,7 +49,7 @@ export default function HistoryPage() {
             <SelectValue placeholder="Select a race" />
           </SelectTrigger>
           <SelectContent>
-            {races.map((race) => (
+            {races.map(race => (
               <SelectItem key={race.id} value={race.id}>
                 {race.name}
               </SelectItem>
@@ -116,9 +129,9 @@ export default function HistoryPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {race.results.map((result) => {
-                      const driver = getDriverById(result.driverId)
-                      if (!driver) return null
+                    {race.results.map(result => {
+                      const driver = getDriverById(result.driverId);
+                      if (!driver) return null;
 
                       return (
                         <TableRow key={result.driverId}>
@@ -126,7 +139,10 @@ export default function HistoryPage() {
                           <TableCell>
                             <div className="flex items-center gap-2">
                               <Avatar className="h-8 w-8 border">
-                                <AvatarImage src={driver.imageUrl || "/placeholder.svg"} alt={driver.name} />
+                                <AvatarImage
+                                  src={driver.imageUrl || "/placeholder.svg"}
+                                  alt={driver.name}
+                                />
                                 <AvatarFallback>{driver.code}</AvatarFallback>
                               </Avatar>
                               <span>{driver.name}</span>
@@ -136,7 +152,7 @@ export default function HistoryPage() {
                           <TableCell className="text-right">{result.time}</TableCell>
                           <TableCell className="text-right">{result.points}</TableCell>
                         </TableRow>
-                      )
+                      );
                     })}
                   </TableBody>
                 </Table>
@@ -153,7 +169,9 @@ export default function HistoryPage() {
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center justify-center py-8">
-                <p className="text-muted-foreground">Qualifying data not available for this race.</p>
+                <p className="text-muted-foreground">
+                  Qualifying data not available for this race.
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -163,12 +181,14 @@ export default function HistoryPage() {
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center justify-center py-8">
-                <p className="text-muted-foreground">Fastest lap data not available for this race.</p>
+                <p className="text-muted-foreground">
+                  Fastest lap data not available for this race.
+                </p>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

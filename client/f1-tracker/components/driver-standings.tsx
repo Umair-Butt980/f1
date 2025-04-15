@@ -1,10 +1,10 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { drivers } from "@/lib/f1-data"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { drivers } from "@/lib/f1-data";
 
 export function DriverStandings() {
   // Get top 5 drivers
-  const topDrivers = [...drivers].sort((a, b) => a.position - b.position).slice(0, 5)
+  const topDrivers = [...drivers].sort((a, b) => a.position - b.position).slice(0, 5);
 
   return (
     <Card>
@@ -14,10 +14,13 @@ export function DriverStandings() {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          {topDrivers.map((driver) => (
+          {topDrivers.map(driver => (
             <div key={driver.id} className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-1 h-10 rounded-full" style={{ backgroundColor: driver.teamColor }} />
+                <div
+                  className="w-1 h-10 rounded-full"
+                  style={{ backgroundColor: driver.teamColor }}
+                />
                 <Avatar className="h-10 w-10 border">
                   <AvatarImage src={driver.imageUrl || "/placeholder.svg"} alt={driver.name} />
                   <AvatarFallback>{driver.code}</AvatarFallback>
@@ -43,5 +46,5 @@ export function DriverStandings() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

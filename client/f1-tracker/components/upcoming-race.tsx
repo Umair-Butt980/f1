@@ -1,9 +1,9 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { getUpcomingRace } from "@/lib/f1-data"
-import Image from "next/image"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { getUpcomingRace } from "@/lib/f1-data";
+import Image from "next/image";
 
 export function UpcomingRace() {
-  const upcomingRace = getUpcomingRace()
+  const upcomingRace = getUpcomingRace();
 
   if (!upcomingRace) {
     return (
@@ -13,17 +13,17 @@ export function UpcomingRace() {
           <CardDescription>No upcoming races scheduled</CardDescription>
         </CardHeader>
       </Card>
-    )
+    );
   }
 
   // Format date for display
-  const raceDate = new Date(upcomingRace.date)
+  const raceDate = new Date(upcomingRace.date);
   const formattedDate = raceDate.toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
-  })
+  });
 
   return (
     <Card>
@@ -76,5 +76,5 @@ export function UpcomingRace() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
