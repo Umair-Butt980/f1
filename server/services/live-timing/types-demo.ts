@@ -98,3 +98,22 @@ function classifyRaceData(data: RaceData): string {
      return `LEC moved from ${data.from} to ${data.to}`
     }
   }
+
+//   Partial<T>: Makes all properties optional.
+
+// Required<T>: Makes all properties required.
+
+// Readonly<T>: Makes all properties read-only.
+
+// Pick<T, K>: Picks a subset of properties.
+
+// Omit<T, K>: Omits specific properties.
+
+// Record<K, T>: Constructs an object type with a specific set of keys and values.
+
+// Exclude<T, U> / Extract<T, U>: Set operations on union types.
+
+// examples 
+type IsString<T> = T extends string ? true : false;
+
+type UserPreview = Pick<driver, "name" | "age">
