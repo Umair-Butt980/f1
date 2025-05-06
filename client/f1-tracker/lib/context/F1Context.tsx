@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useCallback } from "react";
 import { F1ContextType, DriverStanding } from "../types/f1";
+import { teamColors } from "../constants/team-colors";
 
 const F1Context = createContext<F1ContextType | undefined>(undefined);
 
@@ -15,29 +16,28 @@ export function F1Provider({ children }: { children: React.ReactNode }) {
       setIsLoading(true);
       setError(null);
 
-      // TODO: Replace with actual API call
-      const response = await fetch("GET http://ergast.com/api/f1/{2025}/driverStandings.json");
+      const response = await fetch("http://api.jolpi.ca/ergast/f1/2025/driverStandings.json");
       console.log(response);
       if (!response.ok) {
         throw new Error("Failed to fetch driver standings");
       }
 
       const data = await response.json();
-      // Transform the data to match our DriverStanding interface
-      // This is a placeholder transformation - we'll need to adjust based on actual API response
-      const standings: DriverStanding[] = data.map((driver: any, index: number) => ({
-        position: index + 1,
+      const standingsData = data.MRData.StandingsTable.StandingsLists[0]?.DriverStandings || [];
+
+      const standings: DriverStanding[] = standingsData.map((standing: any) => ({
+        position: parseInt(standing.position),
         driver: {
-          driver_number: driver.driver_number,
-          broadcast_name: driver.broadcast_name,
-          full_name: driver.full_name,
-          team_name: driver.team_name,
-          team_colour: driver.team_colour,
-          country_code: driver.country_code,
-          headshot_url: driver.headshot_url,
+          driver_number: parseInt(standing.Driver.permanentNumber),
+          broadcast_name: standing.Driver.givenName + " " + standing.Driver.familyName,
+          full_name: standing.Driver.givenName + " " + standing.Driver.familyName,
+          team_name: standing.Constructors[0].name,
+          team_colour: teamColors[standing.Constructors[0].name] || "000000",
+          country_code: standing.Driver.nationality,
+          headshot_url: `/drivers/${standing.Driver.driverId}.jpg`,
         },
-        points: 0, // These will need to be fetched from a different endpoint
-        wins: 0,
+        points: parseFloat(standing.points),
+        wins: parseInt(standing.wins),
         podiums: 0,
         fastest_laps: 0,
       }));

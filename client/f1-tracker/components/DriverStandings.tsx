@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useF1 } from "@/lib/context/F1Context";
 import Image from "next/image";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function DriverStandings() {
   const { driverStandings, isLoading, error, fetchDriverStandings } = useF1();
@@ -13,96 +14,104 @@ export function DriverStandings() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-600"></div>
-      </div>
+      <Card>
+        <CardContent className="flex items-center justify-center min-h-[400px]">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+        </CardContent>
+      </Card>
     );
   }
 
   if (error) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-red-600">Error: {error}</div>
-      </div>
+      <Card>
+        <CardContent className="flex items-center justify-center min-h-[400px]">
+          <div className="text-destructive">Error: {error}</div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (!driverStandings.length) {
+    return (
+      <Card>
+        <CardContent className="flex items-center justify-center min-h-[400px]">
+          <div className="text-muted-foreground">No driver standings available</div>
+        </CardContent>
+      </Card>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold mb-6">Driver Standings 12</h2>
-      <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+    <Card>
+      <CardHeader>
+        <CardTitle>Driver Standings</CardTitle>
+      </CardHeader>
+      <CardContent>
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b">
+                <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
                   Pos
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
                   Driver
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
                   Team
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
                   Points
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
                   Wins
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Podiums
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody>
               {driverStandings.map(standing => (
-                <tr key={standing.driver.driver_number} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {standing.position}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center">
-                      <div className="h-10 w-10 relative">
+                <tr key={standing.driver.driver_number} className="border-b hover:bg-muted/50">
+                  <td className="py-3 px-4 text-sm font-medium">{standing.position}</td>
+                  <td className="py-3 px-4">
+                    <div className="flex items-center gap-3">
+                      <div className="relative h-8 w-8">
                         <Image
                           src={standing.driver.headshot_url}
                           alt={standing.driver.full_name}
                           fill
                           className="rounded-full object-cover"
+                          onError={e => {
+                            const target = e.target as HTMLImageElement;
+                            target.src = "/placeholder.svg";
+                          }}
                         />
                       </div>
-                      <div className="ml-4">
-                        <div className="text-sm font-medium text-gray-900">
-                          {standing.driver.full_name}
+                      <div>
+                        <div className="text-sm font-medium">{standing.driver.full_name}</div>
+                        <div className="text-xs text-muted-foreground">
+                          {standing.driver.country_code}
                         </div>
-                        <div className="text-sm text-gray-500">{standing.driver.country_code}</div>
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center">
+                  <td className="py-3 px-4">
+                    <div className="flex items-center gap-2">
                       <div
-                        className="h-4 w-4 rounded-full mr-2"
+                        className="h-3 w-3 rounded-full"
                         style={{ backgroundColor: `#${standing.driver.team_colour}` }}
-                      ></div>
-                      <span className="text-sm text-gray-900">{standing.driver.team_name}</span>
+                      />
+                      <span className="text-sm">{standing.driver.team_name}</span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {standing.points}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {standing.wins}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {standing.podiums}
-                  </td>
+                  <td className="py-3 px-4 text-sm font-medium">{standing.points}</td>
+                  <td className="py-3 px-4 text-sm">{standing.wins}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }
