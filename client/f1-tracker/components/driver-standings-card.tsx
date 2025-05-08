@@ -8,7 +8,7 @@ import { DriverStanding } from "@/lib/types/f1";
 import { teamColors } from "@/lib/constants/team-colors";
 import Link from "next/link";
 
-export function DriverStandings() {
+export function DriverStandingsCard() {
   const [topDrivers, setTopDrivers] = useState<DriverStanding[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

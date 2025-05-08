@@ -8,6 +8,7 @@ import { Flag, Home, LineChart, Timer, Trophy, Users } from "lucide-react";
 const navItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "/standings", label: "Standings", icon: Trophy },
+  { href: "/constructors", label: "Constructor Standings", icon: Trophy },
   { href: "/live", label: "Live Race", icon: Timer },
   { href: "/history", label: "Race History", icon: Users },
   { href: "/stats", label: "Statistics", icon: LineChart },

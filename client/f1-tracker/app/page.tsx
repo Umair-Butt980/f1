@@ -1,10 +1,12 @@
-import { DriverStandings } from "@/components/driver-standings";
+// import { DriverStandings } from "@/components/driver-standings";
 import { RecentResults } from "@/components/recent-results";
 import { UpcomingRace } from "@/components/upcoming-race";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getOngoingRace, getPredictedWinner } from "@/lib/f1-data";
 import { Flag, Timer } from "lucide-react";
 import Link from "next/link";
+import { DriverStandingsCard } from "@/components/driver-standings-card";
+import { ConstructorStandingsCard } from "@/components/constructor-standings-card";
 
 export default function Home() {
   const ongoingRace = getOngoingRace();
@@ -27,7 +29,8 @@ export default function Home() {
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <UpcomingRace />
-        <DriverStandings />
+        <DriverStandingsCard />
+        <ConstructorStandingsCard />
         <Card>
           <CardHeader className="pb-2">
             <CardTitle>Predicted Winner</CardTitle>

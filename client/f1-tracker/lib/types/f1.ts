@@ -1,6 +1,6 @@
 export interface Driver {
   driverId: string;
-  permanentNumber: string;
+  permanentNumber?: string;
   code: string;
   url: string;
   givenName: string;
@@ -16,6 +16,14 @@ export interface Constructor {
   nationality: string;
 }
 
+export interface ConstructorStanding {
+  position: string;
+  positionText: string;
+  points: string;
+  wins: string;
+  Constructor: Constructor;
+}
+
 export interface DriverStanding {
   position: string;
   positionText: string;
@@ -28,7 +36,8 @@ export interface DriverStanding {
 export interface StandingsList {
   season: string;
   round: string;
-  DriverStandings: DriverStanding[];
+  DriverStandings?: DriverStanding[];
+  ConstructorStandings?: ConstructorStanding[];
 }
 
 export interface StandingsTable {
