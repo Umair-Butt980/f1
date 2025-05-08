@@ -1,20 +1,54 @@
 export interface Driver {
-  driver_number: number;
-  broadcast_name: string;
-  full_name: string;
-  team_name: string;
-  team_colour: string;
-  country_code: string;
-  headshot_url: string;
+  driverId: string;
+  permanentNumber: string;
+  code: string;
+  url: string;
+  givenName: string;
+  familyName: string;
+  dateOfBirth: string;
+  nationality: string;
+}
+
+export interface Constructor {
+  constructorId: string;
+  url: string;
+  name: string;
+  nationality: string;
 }
 
 export interface DriverStanding {
-  position: number;
-  driver: Driver;
-  points: number;
-  wins: number;
-  podiums: number;
-  fastest_laps: number;
+  position: string;
+  positionText: string;
+  points: string;
+  wins: string;
+  Driver: Driver;
+  Constructors: Constructor[];
+}
+
+export interface StandingsList {
+  season: string;
+  round: string;
+  DriverStandings: DriverStanding[];
+}
+
+export interface StandingsTable {
+  season: string;
+  round: string;
+  StandingsLists: StandingsList[];
+}
+
+export interface MRData {
+  xmlns: string;
+  series: string;
+  url: string;
+  limit: string;
+  offset: string;
+  total: string;
+  StandingsTable: StandingsTable;
+}
+
+export interface ErgastResponse {
+  MRData: MRData;
 }
 
 export interface F1ContextType {

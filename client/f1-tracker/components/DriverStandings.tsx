@@ -2,8 +2,8 @@
 
 import { useEffect } from "react";
 import { useF1 } from "@/lib/context/F1Context";
-import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { teamColors } from "@/lib/constants/team-colors";
 
 export function DriverStandings() {
   const { driverStandings, isLoading, error, fetchDriverStandings } = useF1();
@@ -71,16 +71,15 @@ export function DriverStandings() {
             </thead>
             <tbody>
               {driverStandings.map(standing => (
-                <tr key={standing.driver.driver_number} className="border-b hover:bg-muted/50">
+                <tr key={standing.Driver.driverId} className="border-b hover:bg-muted/50">
                   <td className="py-3 px-4 text-sm font-medium">{standing.position}</td>
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-3">
                       <div className="relative h-8 w-8">
-                        <Image
-                          src={standing.driver.headshot_url}
-                          alt={standing.driver.full_name}
-                          fill
-                          className="rounded-full object-cover"
+                        <img
+                          src={`/drivers/${standing.Driver.driverId}.jpg`}
+                          alt={`${standing.Driver.givenName} ${standing.Driver.familyName}`}
+                          className="rounded-full object-cover w-full h-full"
                           onError={e => {
                             const target = e.target as HTMLImageElement;
                             target.src = "/placeholder.svg";
@@ -88,9 +87,11 @@ export function DriverStandings() {
                         />
                       </div>
                       <div>
-                        <div className="text-sm font-medium">{standing.driver.full_name}</div>
+                        <div className="text-sm font-medium">
+                          {standing.Driver.givenName} {standing.Driver.familyName}
+                        </div>
                         <div className="text-xs text-muted-foreground">
-                          {standing.driver.country_code}
+                          {standing.Driver.nationality}
                         </div>
                       </div>
                     </div>
@@ -99,9 +100,11 @@ export function DriverStandings() {
                     <div className="flex items-center gap-2">
                       <div
                         className="h-3 w-3 rounded-full"
-                        style={{ backgroundColor: `#${standing.driver.team_colour}` }}
+                        style={{
+                          backgroundColor: `#${teamColors[standing.Constructors[0].name] || "000000"}`,
+                        }}
                       />
-                      <span className="text-sm">{standing.driver.team_name}</span>
+                      <span className="text-sm">{standing.Constructors[0].name}</span>
                     </div>
                   </td>
                   <td className="py-3 px-4 text-sm font-medium">{standing.points}</td>
