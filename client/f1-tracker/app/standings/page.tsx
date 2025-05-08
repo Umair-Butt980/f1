@@ -1,4 +1,4 @@
-import { DriverStandings } from "@/components/DriverStandings";
+import DriverStandings from "@/components/DriverStandings";
 
 export default function StandingsPage() {
   return (

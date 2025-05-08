@@ -1,48 +1,45 @@
 "use client";
 
 import React, { createContext, useContext, useState, useCallback } from "react";
-import { F1ContextType, DriverStanding, ErgastResponse } from "../types/f1";
-import { teamColors } from "../constants/team-colors";
+import { DriverStanding } from "@/lib/types/f1";
+import { getDriverStandings } from "@/lib/services/f1-api";
+
+interface F1ContextType {
+  driverStandings: DriverStanding[];
+  isLoading: boolean;
+  error: string | null;
+  fetchDriverStandings: () => Promise<void>;
+}
 
 const F1Context = createContext<F1ContextType | undefined>(undefined);
 
 export function F1Provider({ children }: { children: React.ReactNode }) {
   const [driverStandings, setDriverStandings] = useState<DriverStanding[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const fetchDriverStandings = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
     try {
-      setIsLoading(true);
-      setError(null);
-
-      const response = await fetch("https://api.jolpi.ca/ergast/f1/2025/driverStandings.json");
-      if (!response.ok) {
-        throw new Error("Failed to fetch driver standings");
-      }
-
-      const data: ErgastResponse = await response.json();
+      const data = await getDriverStandings();
       const standings = data.MRData.StandingsTable.StandingsLists[0]?.DriverStandings || [];
       setDriverStandings(standings);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(err instanceof Error ? err.message : "Failed to fetch driver standings");
     } finally {
       setIsLoading(false);
     }
   }, []);
 
-  return (
-    <F1Context.Provider
-      value={{
-        driverStandings,
-        isLoading,
-        error,
-        fetchDriverStandings,
-      }}
-    >
-      {children}
-    </F1Context.Provider>
-  );
+  const value = {
+    driverStandings,
+    isLoading,
+    error,
+    fetchDriverStandings,
+  };
+
+  return <F1Context.Provider value={value}>{children}</F1Context.Provider>;
 }
 
 export function useF1() {

@@ -1,36 +1,11 @@
-"use client";
-
-import { useEffect } from "react";
-import { useF1 } from "@/lib/context/F1Context";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getDriverStandings } from "@/lib/services/f1-api";
 import { teamColors } from "@/lib/constants/team-colors";
+import { DriverImage } from "@/components/ui/driver-image";
 
-export function DriverStandings() {
-  const { driverStandings, isLoading, error, fetchDriverStandings } = useF1();
-
-  useEffect(() => {
-    fetchDriverStandings();
-  }, [fetchDriverStandings]);
-
-  if (isLoading) {
-    return (
-      <Card>
-        <CardContent className="flex items-center justify-center min-h-[400px]">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-        </CardContent>
-      </Card>
-    );
-  }
-
-  if (error) {
-    return (
-      <Card>
-        <CardContent className="flex items-center justify-center min-h-[400px]">
-          <div className="text-destructive">Error: {error}</div>
-        </CardContent>
-      </Card>
-    );
-  }
+export default async function DriverStandings() {
+  const data = await getDriverStandings();
+  const driverStandings = data.MRData.StandingsTable.StandingsLists[0]?.DriverStandings || [];
 
   if (!driverStandings.length) {
     return (
@@ -76,14 +51,10 @@ export function DriverStandings() {
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-3">
                       <div className="relative h-8 w-8">
-                        <img
-                          src={`/drivers/${standing.Driver.driverId}.jpg`}
+                        <DriverImage
+                          driverId={standing.Driver.driverId}
                           alt={`${standing.Driver.givenName} ${standing.Driver.familyName}`}
                           className="rounded-full object-cover w-full h-full"
-                          onError={e => {
-                            const target = e.target as HTMLImageElement;
-                            target.src = "/placeholder.svg";
-                          }}
                         />
                       </div>
                       <div>
