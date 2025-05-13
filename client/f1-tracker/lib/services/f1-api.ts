@@ -30,3 +30,37 @@ export async function getTopConstructors(limit: number = 5) {
   const standings = data.MRData.StandingsTable.StandingsLists[0]?.ConstructorStandings || [];
   return standings.slice(0, limit);
 }
+
+export async function getUpcomingRace() {
+  const response = await fetch(`${BASE_URL}/current/next.json`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch upcoming race");
+  }
+  const data = await response.json();
+  const race = data.MRData.RaceTable.Races[0];
+  
+  if (!race) return null;
+
+  return {
+    name: race.raceName,
+    round: race.round,
+    date: race.date,
+    time: race.time,
+    circuit: {
+      name: race.Circuit.circuitName,
+      location: race.Circuit.Location.locality,
+      country: race.Circuit.Location.country,
+      imageUrl: `/circuits/${race.Circuit.circuitId}.jpg`
+    },
+    sessions: {
+      practice1: race.FirstPractice,
+      practice2: race.SecondPractice,
+      practice3: race.ThirdPractice,
+      qualifying: race.Qualifying,
+      race: {
+        date: race.date,
+        time: race.time
+      }
+    }
+  };
+}

@@ -13,8 +13,9 @@ export default function Home() {
   const predictedWinner = getPredictedWinner();
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col md:flex-row justify-between gap-4">
+    <div className="container mx-auto max-w-7xl px-4 py-8">
+      {/* Header Section */}
+      <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
         {ongoingRace && (
           <Link
@@ -27,38 +28,49 @@ export default function Home() {
         )}
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <UpcomingRace />
-        <DriverStandingsCard />
-        <ConstructorStandingsCard />
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle>Predicted Winner</CardTitle>
-            <CardDescription>Based on current form</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col items-center justify-center p-4 text-center">
-              <div
-                className="w-20 h-20 rounded-full flex items-center justify-center mb-4"
-                style={{ backgroundColor: predictedWinner.teamColor }}
-              >
-                <Flag className="h-10 w-10 text-white" />
+      {/* Main Grid Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Left Column - Upcoming Race */}
+        <div className="lg:col-span-8">
+          <UpcomingRace />
+        </div>
+
+        {/* Right Column - Standings and Predictions */}
+        <div className="lg:col-span-4 space-y-6">
+          <DriverStandingsCard />
+          <ConstructorStandingsCard />
+          <Card className="text-center">
+            <CardHeader className="pb-2">
+              <CardTitle>Predicted Winner</CardTitle>
+              <CardDescription>Based on current form</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col items-center justify-center p-4">
+                <div
+                  className="w-20 h-20 rounded-full flex items-center justify-center mb-4"
+                  style={{ backgroundColor: predictedWinner.teamColor }}
+                >
+                  <Flag className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-xl font-bold">{predictedWinner.name}</h3>
+                <p className="text-sm text-muted-foreground">{predictedWinner.team}</p>
+                <div className="mt-4 text-sm">
+                  <p>Current Position: P{predictedWinner.position}</p>
+                  <p>Points: {predictedWinner.points}</p>
+                </div>
+                <Link href="/predictions" className="mt-4 text-sm text-primary hover:underline">
+                  View detailed predictions →
+                </Link>
               </div>
-              <h3 className="text-xl font-bold">{predictedWinner.name}</h3>
-              <p className="text-sm text-muted-foreground">{predictedWinner.team}</p>
-              <div className="mt-4 text-sm">
-                <p>Current Position: P{predictedWinner.position}</p>
-                <p>Points: {predictedWinner.points}</p>
-              </div>
-              <Link href="/predictions" className="mt-4 text-sm text-primary hover:underline">
-                View detailed predictions →
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
       </div>
 
-      <RecentResults />
+      {/* Recent Results Section */}
+      <div className="mt-8">
+        <RecentResults />
+      </div>
     </div>
   );
 }

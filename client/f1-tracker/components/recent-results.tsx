@@ -13,22 +13,24 @@ export function RecentResults() {
         <CardDescription>Last 3 races</CardDescription>
       </CardHeader>
       <CardContent>
-        <Tabs defaultValue={recentRaces[0]?.id}>
-          <TabsList className="grid grid-cols-3 mb-4">
+        <Tabs defaultValue={recentRaces[0]?.id} className="w-full">
+          <TabsList className="grid grid-cols-3 mb-6">
             {recentRaces.map(race => (
-              <TabsTrigger key={race.id} value={race.id}>
+              <TabsTrigger key={race.id} value={race.id} className="text-sm">
                 {race.circuit.location}
               </TabsTrigger>
             ))}
           </TabsList>
           {recentRaces.map(race => (
-            <TabsContent key={race.id} value={race.id} className="space-y-4">
-              <h3 className="text-lg font-bold">{race.name}</h3>
-              <p className="text-sm text-muted-foreground">
-                Round {race.round} · {new Date(race.date).toLocaleDateString()}
-              </p>
+            <TabsContent key={race.id} value={race.id} className="space-y-6">
+              <div className="text-center">
+                <h3 className="text-xl font-bold">{race.name}</h3>
+                <p className="text-sm text-muted-foreground">
+                  Round {race.round} · {new Date(race.date).toLocaleDateString()}
+                </p>
+              </div>
 
-              <div className="space-y-2">
+              <div className="grid gap-3">
                 {race.results?.slice(0, 3).map(result => {
                   const driver = getDriverById(result.driverId);
                   if (!driver) return null;
@@ -36,13 +38,13 @@ export function RecentResults() {
                   return (
                     <div
                       key={result.driverId}
-                      className="flex items-center justify-between p-2 rounded-md bg-muted"
+                      className="flex items-center justify-between p-3 rounded-md bg-muted hover:bg-muted/80 transition-colors"
                     >
-                      <div className="flex items-center gap-3">
-                        <div className="w-6 h-6 flex items-center justify-center rounded-full bg-background">
-                          <span className="text-xs font-bold">P{result.position}</span>
+                      <div className="flex items-center gap-4">
+                        <div className="w-8 h-8 flex items-center justify-center rounded-full bg-background font-bold">
+                          P{result.position}
                         </div>
-                        <Avatar className="h-8 w-8 border">
+                        <Avatar className="h-10 w-10 border">
                           <AvatarImage
                             src={driver.imageUrl || "/placeholder.svg"}
                             alt={driver.name}
@@ -63,9 +65,15 @@ export function RecentResults() {
                 })}
               </div>
 
-              <a href={`/history?race=${race.id}`} className="text-sm text-primary hover:underline">
-                View full results →
-              </a>
+              <div className="text-center pt-2">
+                <a 
+                  href={`/history?race=${race.id}`} 
+                  className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
+                >
+                  View full results
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
             </TabsContent>
           ))}
         </Tabs>
