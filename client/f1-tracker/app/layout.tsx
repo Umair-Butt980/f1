@@ -33,7 +33,7 @@ export default function RootLayout({
             <div className="flex min-h-screen flex-col">
               <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
                 <div className="container flex h-14 items-center justify-between">
-                  <Link href="/" className="flex items-center space-x-2">
+                  <Link href="/" className="flex items-center space-x-2 ml-21">
                     <Flag className="h-6 w-6 text-f1-red" />
                     <span className="font-bold">F1 Tracker</span>
                   </Link>
@@ -46,7 +46,7 @@ export default function RootLayout({
               <main className="flex-1 container py-6">{children}</main>
               <footer className="border-t py-6">
                 <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
-                  <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
+                  <p className="text-center text-sm leading-loose text-muted-foreground  ml-50">
                     &copy; {new Date().getFullYear()} F1 Tracker. All rights reserved.
                   </p>
                   <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
