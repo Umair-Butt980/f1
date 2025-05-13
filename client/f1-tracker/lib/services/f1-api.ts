@@ -38,7 +38,7 @@ export async function getUpcomingRace() {
   }
   const data = await response.json();
   const race = data.MRData.RaceTable.Races[0];
-  
+
   if (!race) return null;
 
   return {
@@ -50,7 +50,7 @@ export async function getUpcomingRace() {
       name: race.Circuit.circuitName,
       location: race.Circuit.Location.locality,
       country: race.Circuit.Location.country,
-      imageUrl: `/circuits/${race.Circuit.circuitId}.jpg`
+      imageUrl: `/circuits/${race.Circuit.circuitId}.jpg`,
     },
     sessions: {
       practice1: race.FirstPractice,
@@ -59,8 +59,8 @@ export async function getUpcomingRace() {
       qualifying: race.Qualifying,
       race: {
         date: race.date,
-        time: race.time
-      }
-    }
+        time: race.time,
+      },
+    },
   };
 }

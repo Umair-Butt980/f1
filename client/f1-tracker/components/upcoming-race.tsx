@@ -65,25 +65,37 @@ export async function UpcomingRace() {
             <div className="flex flex-col p-3 bg-muted rounded-md text-center">
               <span className="text-xs text-muted-foreground">Practice 1</span>
               <span className="text-sm font-medium">
-                {formatTime(upcomingRace.sessions.practice1.date, upcomingRace.sessions.practice1.time)}
+                {formatTime(
+                  upcomingRace.sessions.practice1.date,
+                  upcomingRace.sessions.practice1.time
+                )}
               </span>
             </div>
             <div className="flex flex-col p-3 bg-muted rounded-md text-center">
               <span className="text-xs text-muted-foreground">Practice 2</span>
               <span className="text-sm font-medium">
-                {formatTime(upcomingRace.sessions.practice2.date, upcomingRace.sessions.practice2.time)}
+                {formatTime(
+                  upcomingRace.sessions.practice2.date,
+                  upcomingRace.sessions.practice2.time
+                )}
               </span>
             </div>
             <div className="flex flex-col p-3 bg-muted rounded-md text-center">
               <span className="text-xs text-muted-foreground">Practice 3</span>
               <span className="text-sm font-medium">
-                {formatTime(upcomingRace.sessions.practice3.date, upcomingRace.sessions.practice3.time)}
+                {formatTime(
+                  upcomingRace.sessions.practice3.date,
+                  upcomingRace.sessions.practice3.time
+                )}
               </span>
             </div>
             <div className="flex flex-col p-3 bg-muted rounded-md text-center">
               <span className="text-xs text-muted-foreground">Qualifying</span>
               <span className="text-sm font-medium">
-                {formatTime(upcomingRace.sessions.qualifying.date, upcomingRace.sessions.qualifying.time)}
+                {formatTime(
+                  upcomingRace.sessions.qualifying.date,
+                  upcomingRace.sessions.qualifying.time
+                )}
               </span>
             </div>
             <div className="flex flex-col p-3 col-span-2 bg-primary/10 rounded-md text-center">

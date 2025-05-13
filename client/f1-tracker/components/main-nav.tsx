@@ -19,18 +19,20 @@ export function MainNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="flex items-center space-x-4 lg:space-x-6">
+    <nav className="flex items-center space-x-1 lg:space-x-2">
       {navItems.map(item => (
         <Link
           key={item.href}
           href={item.href}
           className={cn(
-            "flex items-center text-sm font-medium transition-colors hover:text-primary",
-            pathname === item.href ? "text-primary" : "text-muted-foreground"
+            "flex items-center px-3 py-2 text-sm font-medium transition-colors rounded-md hover:bg-muted",
+            pathname === item.href
+              ? "text-primary bg-muted"
+              : "text-muted-foreground hover:text-primary"
           )}
         >
           <item.icon className="w-4 h-4 mr-2" />
-          {item.label}
+          <span className="hidden md:inline">{item.label}</span>
         </Link>
       ))}
     </nav>

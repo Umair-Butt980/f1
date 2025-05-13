@@ -31,15 +31,24 @@ export default function Home() {
       {/* Main Grid Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Column - Upcoming Race */}
-        <div className="lg:col-span-8">
+        <div className="lg:col-span-6">
           <UpcomingRace />
         </div>
 
-        {/* Right Column - Standings and Predictions */}
-        <div className="lg:col-span-4 space-y-6">
+        {/* Right Column - Recent Results */}
+        <div className="lg:col-span-6">
+          <RecentResults />
+        </div>
+
+        {/* Bottom Row - Standings and Predictions */}
+        <div className="lg:col-span-4">
           <DriverStandingsCard />
+        </div>
+        <div className="lg:col-span-4">
           <ConstructorStandingsCard />
-          <Card className="text-center">
+        </div>
+        <div className="lg:col-span-4">
+          <Card className="text-center h-full">
             <CardHeader className="pb-2">
               <CardTitle>Predicted Winner</CardTitle>
               <CardDescription>Based on current form</CardDescription>
@@ -65,11 +74,6 @@ export default function Home() {
             </CardContent>
           </Card>
         </div>
-      </div>
-
-      {/* Recent Results Section */}
-      <div className="mt-8">
-        <RecentResults />
       </div>
     </div>
   );

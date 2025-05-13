@@ -32,12 +32,15 @@ export default function RootLayout({
           >
             <div className="flex min-h-screen flex-col">
               <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-                <div className="container flex h-14 items-center">
-                  <Link href="/" className="flex items-center space-x-2 mr-4">
+                <div className="container flex h-14 items-center justify-between">
+                  <Link href="/" className="flex items-center space-x-2">
                     <Flag className="h-6 w-6 text-f1-red" />
                     <span className="font-bold">F1 Tracker</span>
                   </Link>
-                  <MainNav />
+                  <div className="flex-1 flex justify-center">
+                    <MainNav />
+                  </div>
+                  <div className="w-[120px]"></div> {/* Spacer for balance */}
                 </div>
               </header>
               <main className="flex-1 container py-6">{children}</main>
