@@ -58,6 +58,19 @@ export type LapTime = {
   sector3: string;
 };
 
+export interface DriverResult {
+  raceName: string;
+  position: string;
+  points: string;
+  grid: string;
+  status: string;
+  fastestLap?: {
+    rank: string;
+    lap: string;
+    time: string;
+  };
+}
+
 // Mock drivers data
 export const drivers: Driver[] = [
   {
@@ -506,4 +519,34 @@ export function getPredictedWinner() {
   // In a real app, this would use an algorithm or ML model
   // For demo purposes, we'll just return the current leader
   return drivers[0];
+}
+
+export async function getDriverResults(driverId: string): Promise<DriverResult[]> {
+  try {
+    const response = await fetch(
+      `https://api.jolpi.ca/ergast/f1/2025/drivers/${driverId}/results.json`
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch driver results");
+    }
+
+    const data = await response.json();
+    return data.MRData.RaceTable.Races.map((race: any) => ({
+      raceName: race.raceName,
+      position: race.Results[0].position,
+      points: race.Results[0].points,
+      grid: race.Results[0].grid,
+      status: race.Results[0].status,
+      fastestLap: race.Results[0].FastestLap
+        ? {
+            rank: race.Results[0].FastestLap.rank,
+            lap: race.Results[0].FastestLap.lap,
+            time: race.Results[0].FastestLap.Time.time,
+          }
+        : undefined,
+    }));
+  } catch (error) {
+    console.error("Error fetching driver results:", error);
+    throw error;
+  }
 }

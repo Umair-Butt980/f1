@@ -152,6 +152,119 @@ interface RaceResultsResponse {
 }
 ```
 
+### Pit Stops
+
+```
+GET /2025/{round}/pitstops.json
+```
+
+#### Response Structure
+
+```typescript
+interface PitStopsResponse {
+  MRData: {
+    xmlns: string;
+    series: string;
+    url: string;
+    limit: string;
+    offset: string;
+    total: string;
+    RaceTable: {
+      season: string;
+      round: string;
+      Races: [
+        {
+          season: string;
+          round: string;
+          url: string;
+          raceName: string;
+          Circuit: {
+            circuitId: string;
+            url: string;
+            circuitName: string;
+            Location: {
+              lat: string;
+              long: string;
+              locality: string;
+              country: string;
+            };
+          };
+          date: string;
+          time: string;
+          PitStops: [
+            {
+              driverId: string;
+              lap: string;
+              stop: string;
+              time: string;
+              duration: string;
+            },
+          ];
+        },
+      ];
+    };
+  };
+}
+```
+
+### Lap Times
+
+```
+GET /2025/{round}/laps.json
+```
+
+#### Response Structure
+
+```typescript
+interface LapTimesResponse {
+  MRData: {
+    xmlns: string;
+    series: string;
+    url: string;
+    limit: string;
+    offset: string;
+    total: string;
+    RaceTable: {
+      season: string;
+      round: string;
+      Races: [
+        {
+          season: string;
+          round: string;
+          url: string;
+          raceName: string;
+          Circuit: {
+            circuitId: string;
+            url: string;
+            circuitName: string;
+            Location: {
+              lat: string;
+              long: string;
+              locality: string;
+              country: string;
+            };
+          };
+          date: string;
+          time: string;
+          Laps: [
+            {
+              number: string;
+              Timings: [
+                {
+                  driverId: string;
+                  position: string;
+                  time: string;
+                },
+              ];
+            },
+          ];
+        },
+      ];
+    };
+  };
+}
+```
+
 ## Error Handling
 
 The API integration includes proper error handling for:

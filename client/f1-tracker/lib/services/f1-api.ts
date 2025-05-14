@@ -82,3 +82,19 @@ export async function getRecentRaceResults(limit: number = 3) {
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, limit);
 }
+
+export async function getPitStops(round: string) {
+  const response = await fetch(`${BASE_URL}/2025/${round}/pitstops.json`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch pit stops");
+  }
+  return response.json();
+}
+
+export async function getLapTimes(round: string) {
+  const response = await fetch(`${BASE_URL}/2025/${round}/laps.json`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch lap times");
+  }
+  return response.json();
+}
