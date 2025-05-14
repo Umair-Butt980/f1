@@ -1,4 +1,4 @@
-import { ErgastResponse } from "../types/f1";
+import { ErgastResponse, RaceResultsResponse } from "../types/f1";
 
 const BASE_URL = "https://api.jolpi.ca/ergast/f1";
 
@@ -63,4 +63,22 @@ export async function getUpcomingRace() {
       },
     },
   };
+}
+
+export async function getRaceResults(): Promise<RaceResultsResponse> {
+  const response = await fetch(`${BASE_URL}/current/results.json`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch race results");
+  }
+  return response.json();
+}
+
+export async function getRecentRaceResults(limit: number = 3) {
+  const data = await getRaceResults();
+  const races = data.MRData.RaceTable.Races;
+
+  // Sort races by date (most recent first) and take the last 'limit' races
+  return races
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, limit);
 }
