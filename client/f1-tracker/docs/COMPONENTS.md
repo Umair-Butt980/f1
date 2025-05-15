@@ -84,6 +84,66 @@ Uses the Ergast API response structure with the following key information:
 - Loading spinner
 - Error states
 
+## Driver Comparison
+
+### DriverComparison
+
+A comprehensive driver comparison system that allows users to compare two drivers across multiple metrics.
+
+#### Features
+
+- Dynamic driver selection from current season standings
+- Multiple comparison views:
+  - Points comparison
+  - Pit stop analysis
+  - Lap time analysis
+- Real-time data fetching
+- Interactive charts
+- Responsive design
+
+#### Usage
+
+```tsx
+import { DriverComparison } from "@/components/driver-comparison";
+import { PitStopComparison } from "@/components/pit-stop-comparison";
+import { LapTimeComparison } from "@/components/lap-time-comparison";
+
+export default function ComparisonPage() {
+  return (
+    <div>
+      <DriverComparison driver1Id="max_verstappen" driver2Id="lewis_hamilton" />
+      <PitStopComparison driver1Id="max_verstappen" driver2Id="lewis_hamilton" />
+      <LapTimeComparison driver1Id="max_verstappen" driver2Id="lewis_hamilton" />
+    </div>
+  );
+}
+```
+
+#### Components
+
+1. **DriverComparison**
+
+   - Compares points earned across races
+   - Uses biaxial line chart for visualization
+   - Shows trend analysis
+
+2. **PitStopComparison**
+
+   - Analyzes pit stop performance
+   - Compares number of stops and total pit time
+   - Visualizes pit stop efficiency
+
+3. **LapTimeComparison**
+   - Compares lap times across races
+   - Shows fastest and average lap times
+   - Helps identify consistency and pace
+
+#### Data Integration
+
+- Uses F1Context for driver data
+- Fetches real-time data from Ergast API
+- Implements proper error handling and loading states
+
 ## Future Components
 
 Planned components to be implemented:

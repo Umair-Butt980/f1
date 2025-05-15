@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BiaxialLineChart } from "@/components/ui/biaxial-line-chart";
-import { getDriverResults } from "@/lib/f1-data";
+import { getRaceResults } from "@/lib/services/f1-api";
 
 interface DriverComparisonProps {
   driver1Id: string;
@@ -29,18 +29,25 @@ export function DriverComparison({ driver1Id, driver2Id }: DriverComparisonProps
         setLoading(true);
         setError(null);
 
-        const [driver1Results, driver2Results] = await Promise.all([
-          getDriverResults(driver1Id),
-          getDriverResults(driver2Id),
-        ]);
+        const data = await getRaceResults();
+        const races = data.MRData.RaceTable.Races;
 
-        const combinedData = driver1Results.map((result, index) => ({
-          race: result.raceName,
-          driver1Points: Number(result.points),
-          driver2Points: Number(driver2Results[index]?.points || 0),
-          driver1Position: Number(result.position),
-          driver2Position: Number(driver2Results[index]?.position || 0),
-        }));
+        const combinedData = races.map(race => {
+          const driver1Result = race.Results.find(
+            (result: any) => result.Driver.driverId === driver1Id
+          );
+          const driver2Result = race.Results.find(
+            (result: any) => result.Driver.driverId === driver2Id
+          );
+
+          return {
+            race: race.raceName,
+            driver1Points: Number(driver1Result?.points || 0),
+            driver2Points: Number(driver2Result?.points || 0),
+            driver1Position: Number(driver1Result?.position || 0),
+            driver2Position: Number(driver2Result?.position || 0),
+          };
+        });
 
         setChartData(combinedData);
       } catch (err) {

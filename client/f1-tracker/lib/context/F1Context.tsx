@@ -9,6 +9,7 @@ interface F1ContextType {
   isLoading: boolean;
   error: string | null;
   fetchDriverStandings: () => Promise<void>;
+  getAllDrivers: () => { id: string; name: string }[];
 }
 
 const F1Context = createContext<F1ContextType | undefined>(undefined);
@@ -32,11 +33,19 @@ export function F1Provider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  const getAllDrivers = useCallback(() => {
+    return driverStandings.map(standing => ({
+      id: standing.Driver.driverId,
+      name: `${standing.Driver.givenName} ${standing.Driver.familyName}`,
+    }));
+  }, [driverStandings]);
+
   const value = {
     driverStandings,
     isLoading,
     error,
     fetchDriverStandings,
+    getAllDrivers,
   };
 
   return <F1Context.Provider value={value}>{children}</F1Context.Provider>;

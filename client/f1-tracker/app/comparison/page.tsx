@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -13,75 +13,83 @@ import {
 import { DriverComparison } from "@/components/driver-comparison";
 import { PitStopComparison } from "@/components/pit-stop-comparison";
 import { LapTimeComparison } from "@/components/lap-time-comparison";
+import { useF1 } from "@/lib/context/F1Context";
 
 export default function ComparisonPage() {
-  const [driver1, setDriver1] = useState<string>("");
-  const [driver2, setDriver2] = useState<string>("");
+  const { getAllDrivers, fetchDriverStandings } = useF1();
+  const [selectedDriver1, setSelectedDriver1] = useState<string>("");
+  const [selectedDriver2, setSelectedDriver2] = useState<string>("");
+  const [drivers, setDrivers] = useState<{ id: string; name: string }[]>([]);
+
+  useEffect(() => {
+    fetchDriverStandings();
+  }, [fetchDriverStandings]);
+
+  useEffect(() => {
+    const allDrivers = getAllDrivers();
+    setDrivers(allDrivers);
+  }, [getAllDrivers]);
+
+  const firstHalfDrivers = drivers.slice(0, 10);
+  const secondHalfDrivers = drivers.slice(10);
 
   return (
-    <div className="container mx-auto max-w-7xl px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Driver Comparison</h1>
+    <div className="container mx-auto p-4">
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle>Driver Comparison</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium mb-2">Driver 1</label>
+              <Select value={selectedDriver1} onValueChange={setSelectedDriver1}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select first driver" />
+                </SelectTrigger>
+                <SelectContent>
+                  {firstHalfDrivers.map(driver => (
+                    <SelectItem key={driver.id} value={driver.id}>
+                      {driver.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2">Driver 2</label>
+              <Select value={selectedDriver2} onValueChange={setSelectedDriver2}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select second driver" />
+                </SelectTrigger>
+                <SelectContent>
+                  {secondHalfDrivers.map(driver => (
+                    <SelectItem key={driver.id} value={driver.id}>
+                      {driver.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>Driver 1</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Select value={driver1} onValueChange={setDriver1}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select driver 1" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="max_verstappen">Max Verstappen</SelectItem>
-                <SelectItem value="lewis_hamilton">Lewis Hamilton</SelectItem>
-                <SelectItem value="charles_leclerc">Charles Leclerc</SelectItem>
-                <SelectItem value="lando_norris">Lando Norris</SelectItem>
-                <SelectItem value="carlos_sainz">Carlos Sainz</SelectItem>
-              </SelectContent>
-            </Select>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Driver 2</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Select value={driver2} onValueChange={setDriver2}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select driver 2" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="max_verstappen">Max Verstappen</SelectItem>
-                <SelectItem value="lewis_hamilton">Lewis Hamilton</SelectItem>
-                <SelectItem value="charles_leclerc">Charles Leclerc</SelectItem>
-                <SelectItem value="lando_norris">Lando Norris</SelectItem>
-                <SelectItem value="carlos_sainz">Carlos Sainz</SelectItem>
-              </SelectContent>
-            </Select>
-          </CardContent>
-        </Card>
-      </div>
-
-      {driver1 && driver2 && (
-        <Tabs defaultValue="race-results" className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="race-results">Race Results</TabsTrigger>
-            <TabsTrigger value="pit-stops">Pit Stops</TabsTrigger>
-            <TabsTrigger value="lap-times">Lap Times</TabsTrigger>
+      {selectedDriver1 && selectedDriver2 && (
+        <Tabs defaultValue="points" className="w-full">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="points">Points Comparison</TabsTrigger>
+            <TabsTrigger value="pitstops">Pit Stop Analysis</TabsTrigger>
+            <TabsTrigger value="laptimes">Lap Time Analysis</TabsTrigger>
           </TabsList>
-
-          <TabsContent value="race-results">
-            <DriverComparison driver1Id={driver1} driver2Id={driver2} />
+          <TabsContent value="points">
+            <DriverComparison driver1Id={selectedDriver1} driver2Id={selectedDriver2} />
           </TabsContent>
-
-          <TabsContent value="pit-stops">
-            <PitStopComparison driver1Id={driver1} driver2Id={driver2} />
+          <TabsContent value="pitstops">
+            <PitStopComparison driver1Id={selectedDriver1} driver2Id={selectedDriver2} />
           </TabsContent>
-
-          <TabsContent value="lap-times">
-            <LapTimeComparison driver1Id={driver1} driver2Id={driver2} />
+          <TabsContent value="laptimes">
+            <LapTimeComparison driver1Id={selectedDriver1} driver2Id={selectedDriver2} />
           </TabsContent>
         </Tabs>
       )}
