@@ -3,17 +3,28 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Flag, Home, LineChart, Timer, Trophy, Users, CarFront, ChartLine } from "lucide-react";
+import {
+  Flag,
+  Home,
+  LineChart,
+  Timer,
+  Trophy,
+  Users,
+  CarFront,
+  ChartLine,
+  Calendar,
+} from "lucide-react";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "/standings", label: "Driver Standings", icon: CarFront },
   { href: "/constructors", label: "Constructor Standings", icon: Trophy },
-  { href: "/live", label: "Live Race", icon: Timer },
-  { href: "/history", label: "Race History", icon: Users },
-  { href: "/stats", label: "Statistics", icon: LineChart },
-  { href: "/predictions", label: "Predictions", icon: Flag },
   { href: "/comparison", label: "Driver Comaprison", icon: ChartLine },
+  { href: "/stats", label: "Statistics", icon: LineChart },
+  { href: "/schedule", label: "Schedule", icon: Calendar },
+  { href: "/live", label: "Live Race", icon: Timer },
+  // { href: "/history", label: "Race History", icon: Users },
+  { href: "/predictions", label: "Predictions", icon: Flag },
 ] as const;
 
 export function MainNav() {

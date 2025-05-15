@@ -35,9 +35,18 @@ export default function Home() {
           <UpcomingRace />
         </div>
 
-        {/* Right Column - Recent Results */}
-        <div className="lg:col-span-6">
+        {/* Right Column - Recent Results and Race Calendar */}
+        <div className="lg:col-span-6 space-y-6">
           <RecentResults />
+          <Card>
+            <CardHeader>
+              <CardTitle>Race Calendar</CardTitle>
+              <CardDescription>2024 Season Schedule</CardDescription>
+            </CardHeader>
+            {/* <CardContent>
+              <RaceCalendar />
+            </CardContent> */}
+          </Card>
         </div>
 
         {/* Bottom Row - Standings and Predictions */}

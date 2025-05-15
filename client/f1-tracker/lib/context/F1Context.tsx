@@ -50,7 +50,7 @@ export function F1Provider({ children }: { children: React.ReactNode }) {
 
   return <F1Context.Provider value={value}>{children}</F1Context.Provider>;
 }
-
+// with this we can use the context in the app
 export function useF1() {
   const context = useContext(F1Context);
   if (context === undefined) {

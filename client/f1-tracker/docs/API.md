@@ -265,6 +265,137 @@ interface LapTimesResponse {
 }
 ```
 
+### Race Calendar
+
+```
+GET /2025.json
+```
+
+#### Response Structure
+
+```typescript
+interface RaceCalendarResponse {
+  MRData: {
+    xmlns: string;
+    series: string;
+    url: string;
+    limit: string;
+    offset: string;
+    total: string;
+    RaceTable: {
+      season: string;
+      Races: [
+        {
+          season: string;
+          round: string;
+          url: string;
+          raceName: string;
+          Circuit: {
+            circuitId: string;
+            url: string;
+            circuitName: string;
+            Location: {
+              lat: string;
+              long: string;
+              locality: string;
+              country: string;
+            };
+          };
+          date: string;
+          time: string;
+          FirstPractice: {
+            date: string;
+            time: string;
+          };
+          SecondPractice: {
+            date: string;
+            time: string;
+          };
+          ThirdPractice?: {
+            date: string;
+            time: string;
+          };
+          Qualifying: {
+            date: string;
+            time: string;
+          };
+          Sprint?: {
+            date: string;
+            time: string;
+          };
+        },
+      ];
+    };
+  };
+}
+```
+
+### Race Schedule
+
+```
+GET /2025/{round}.json
+```
+
+#### Response Structure
+
+```typescript
+interface RaceScheduleResponse {
+  MRData: {
+    xmlns: string;
+    series: string;
+    url: string;
+    limit: string;
+    offset: string;
+    total: string;
+    RaceTable: {
+      season: string;
+      round: string;
+      Races: [
+        {
+          season: string;
+          round: string;
+          url: string;
+          raceName: string;
+          Circuit: {
+            circuitId: string;
+            url: string;
+            circuitName: string;
+            Location: {
+              lat: string;
+              long: string;
+              locality: string;
+              country: string;
+            };
+          };
+          date: string;
+          time: string;
+          FirstPractice: {
+            date: string;
+            time: string;
+          };
+          SecondPractice: {
+            date: string;
+            time: string;
+          };
+          ThirdPractice?: {
+            date: string;
+            time: string;
+          };
+          Qualifying: {
+            date: string;
+            time: string;
+          };
+          Sprint?: {
+            date: string;
+            time: string;
+          };
+        },
+      ];
+    };
+  };
+}
+```
+
 ## Error Handling
 
 The API integration includes proper error handling for:

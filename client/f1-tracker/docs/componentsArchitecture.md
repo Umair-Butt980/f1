@@ -127,6 +127,61 @@ Client Components run on the browser and can use React features like hooks and e
   - Interactive elements
   - Real-time updates
 
+### Race Calendar Components
+
+#### RaceCalendar
+
+- **Purpose**: Interactive calendar view of all F1 races
+- **Data Source**: F1 API via Zustand store
+- **Rendering Strategy**: Client Component ("use client")
+- **Key Features**:
+  - Interactive calendar view
+  - Race filtering (upcoming/past/all)
+  - Countdown timers
+  - Session times
+  - Circuit information
+- **State Management**:
+  - Zustand store for race data and filters
+  - Local state for UI interactions
+- **Dependencies**:
+  - Race Calendar Store
+  - UI Components (Card, Calendar)
+  - Date utilities
+
+#### RaceCard
+
+- **Purpose**: Individual race information display
+- **Rendering Strategy**: Client Component
+- **Key Features**:
+  - Race details
+  - Session times
+  - Countdown timer
+  - Circuit information
+  - Interactive elements
+- **State Management**:
+  - Props from parent
+  - Local state for countdown
+- **Dependencies**:
+  - UI Components (Card, Button)
+  - Date utilities
+
+#### SessionTimes
+
+- **Purpose**: Display session times for a race
+- **Rendering Strategy**: Client Component
+- **Key Features**:
+  - Practice sessions
+  - Qualifying
+  - Sprint race (if applicable)
+  - Race start time
+  - Timezone conversion
+- **State Management**:
+  - Props from parent
+  - Local state for timezone
+- **Dependencies**:
+  - Date utilities
+  - UI Components (Table)
+
 ## State Management
 
 - Server Components: Use server-side data fetching
@@ -158,3 +213,28 @@ Client Components run on the browser and can use React features like hooks and e
 - Implement proper error handling
 - Use proper TypeScript types
 - Follow React best practices
+
+## State Management Architecture
+
+### Context (React Context)
+
+- Current season selection
+- User preferences (timezone, theme)
+- Global UI state
+- Authentication state
+
+### Zustand Stores
+
+#### Race Calendar Store
+
+- Race data
+- Filters
+- Selected race
+- Loading states
+- Error handling
+
+#### User Preferences Store
+
+- Timezone settings
+- Notification preferences
+- Favorite races/drivers

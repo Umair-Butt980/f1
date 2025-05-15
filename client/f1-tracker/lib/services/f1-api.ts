@@ -1,6 +1,7 @@
 import { ErgastResponse, RaceResultsResponse } from "../types/f1";
+import { RaceCalendarResponse } from "../types/race-calendar";
 
-const BASE_URL = "https://api.jolpi.ca/ergast/f1";
+export const BASE_URL = "https://api.jolpi.ca/ergast/f1";
 
 export async function getDriverStandings(): Promise<ErgastResponse> {
   const response = await fetch(`${BASE_URL}/2025/driverStandings.json`);
@@ -95,6 +96,14 @@ export async function getLapTimes(round: string) {
   const response = await fetch(`${BASE_URL}/2025/${round}/laps.json`);
   if (!response.ok) {
     throw new Error("Failed to fetch lap times");
+  }
+  return response.json();
+}
+
+export async function getRaceCalendar(season: string = "2025"): Promise<RaceCalendarResponse> {
+  const response = await fetch(`${BASE_URL}/${season}.json`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch race calendar");
   }
   return response.json();
 }
