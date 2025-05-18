@@ -16,14 +16,6 @@ export interface Constructor {
   nationality: string;
 }
 
-export interface ConstructorStanding {
-  position: string;
-  positionText: string;
-  points: string;
-  wins: string;
-  Constructor: Constructor;
-}
-
 export interface DriverStanding {
   position: string;
   positionText: string;
@@ -31,6 +23,14 @@ export interface DriverStanding {
   wins: string;
   Driver: Driver;
   Constructors: Constructor[];
+}
+
+export interface ConstructorStanding {
+  position: string;
+  positionText: string;
+  points: string;
+  wins: string;
+  Constructor: Constructor;
 }
 
 export interface StandingsList {
@@ -122,6 +122,26 @@ export interface Race {
   };
   date: string;
   time: string;
+  FirstPractice?: {
+    date: string;
+    time: string;
+  };
+  SecondPractice?: {
+    date: string;
+    time: string;
+  };
+  ThirdPractice?: {
+    date: string;
+    time: string;
+  };
+  Qualifying?: {
+    date: string;
+    time: string;
+  };
+  Sprint?: {
+    date: string;
+    time: string;
+  };
   Results: RaceResult[];
 }
 
