@@ -86,6 +86,7 @@ client/f1-tracker/
    - Use functional components
    - Implement proper error boundaries
    - Follow React best practices
+    - use context to store the global data
 
 3. **Styling**
 

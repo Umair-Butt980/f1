@@ -422,3 +422,4 @@ Planned endpoints to be implemented:
 - Constructor details
 - Circuit information
 - Live timing data
+- winner prediction
